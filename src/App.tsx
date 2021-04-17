@@ -1,5 +1,6 @@
 import React from 'react'
 import Parent from './components/parent/Parent'
+import './App.css'
 
 const App = () => {
   return (

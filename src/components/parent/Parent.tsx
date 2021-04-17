@@ -67,6 +67,7 @@ const Parent: FC = () => {
         <input
           data-testid='input'
           type='text'
+          placeholder='enter id'
           value={query}
           onChange={handleChange}
         />
