@@ -1,0 +1,13 @@
+.user{
+  display: block;
+  text-align: center;
+  color: white; 
+  line-height: 1.5rem;
+  letter-spacing: .1rem;
+}
+
+.user-h{
+  text-transform: uppercase;
+   letter-spacing: .2rem;
+}
+
