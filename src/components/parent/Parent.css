@@ -4,7 +4,6 @@
   flex-direction: column;
   width: 100vw;
   height: 100vh;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 .parent {
@@ -18,10 +17,10 @@
 
 .parent input {
   width: 10rem;
-  height: 2.8rem;
+  height: 3rem;
   border: none;
   border-bottom-left-radius: 0.5rem;
-  border-top-left-radius: 0.5rem;  
+  border-top-left-radius: 0.5rem;
   font-size: 1rem;
   border: 1px solid grey;
   text-align: center;
@@ -32,7 +31,7 @@
   height: 3rem;
   border: none;
   border-bottom-right-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;  
+  border-top-right-radius: 0.5rem;
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
@@ -48,5 +47,3 @@
   flex-direction: column;
   background-color: teal;
 }
-
-
