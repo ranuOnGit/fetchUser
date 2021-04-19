@@ -1,4 +1,4 @@
-import React, { MouseEvent, ChangeEvent, FC, useState } from 'react';
+import React, { MouseEvent, ChangeEvent, FC, useState, useEffect } from 'react';
 import './Parent.css';
 import Child from '../child/Child';
 import axios from 'axios';
@@ -45,6 +45,7 @@ const initUser: User = {
 const Parent: FC = () => {
   const [query, setQuery] = useState<string>('');
   const [user, setUser] = useState<User>(initUser);
+  const [modal, setModal] = useState<boolean>(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setQuery(e.target.value);
@@ -52,17 +53,31 @@ const Parent: FC = () => {
 
   const handleSearch = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const res = await axios.get(
-      `http://jsonplaceholder.typicode.com/users/${query}`,
-    );
-    console.log(res.data);
-    setUser(res.data);
+    setUser(initUser);
+    let regExp = /^(?:[1-9]|0[1-9]|10)$/;
+    if (!query || !regExp.test(query)) {
+      setModal(true);
+    } else {
+      setModal(false);
+      const res = await axios.get(
+        `http://jsonplaceholder.typicode.com/users/${query}`,
+      );
+      setUser(res.data);
+    }
     setQuery('');
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setModal(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  });
 
   return (
     <div className='container'>
       <h2 data-testid='header'>Search User By ID</h2>
+
       <div className='parent'>
         <input
           data-testid='input'
@@ -76,6 +91,17 @@ const Parent: FC = () => {
         </button>
       </div>
       <div className='child'>
+        <div data-testid='modal'>
+          {modal && (
+            <p className='modal'>
+              Invalid Input!
+              <br />
+              <br />
+              Please search for a number between
+              <br /> 1 - 10
+            </p>
+          )}
+        </div>
         <Child person={user} />
       </div>
       <h5>a react-typescript-jest app</h5>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Parent from '../Parent';
-import Child from '../../child/Child'
+import Child from '../../child/Child';
 
 import {
   render,
@@ -10,13 +10,13 @@ import {
 } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
-import Enzyme from 'enzyme'
+import Enzyme from 'enzyme';
 import { shallow } from 'enzyme';
-import EnzymeAdapter from '@wojtekmaj/enzyme-adapter-react-17'
+import EnzymeAdapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 import axios from 'axios';
 
-Enzyme.configure({adapter: new EnzymeAdapter()})
+Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 let getByTestId: {
   (arg0: string): any;
@@ -61,7 +61,39 @@ test('async test', async () => {
 
 describe('parent component', () => {
   it('renders Child component', () => {
-    const wrapper = shallow(<Parent />)
-    expect(wrapper.find(Child).length).toEqual(1)
-  })
-})
+    const wrapper = shallow(<Parent />);
+    expect(wrapper.find(Child).length).toEqual(1);
+  });
+});
+
+test('modal does not pop-up', () => {
+  const inputEl = getByTestId('input');
+  const searchBtnEl = getByTestId('searchBtn');
+  const modalEl = getByTestId('modal');
+  fireEvent.change(inputEl, {
+    target: {
+      value: '7',
+    },
+  });
+  expect(inputEl.value).toBe('7');
+  fireEvent.click(searchBtnEl);
+  expect(modalEl).toBeTruthy();
+});
+
+
+
+test('modal pops-up', () => {
+  const inputEl = getByTestId('input');
+  const searchBtnEl = getByTestId('searchBtn');
+  const modalEl = getByTestId('modal');
+  fireEvent.change(inputEl, {
+    target: {
+      value: '13',
+    },
+  });
+  expect(inputEl.value).toBe('13');
+  fireEvent.click(searchBtnEl);
+  expect(modalEl.textContent).toBe(
+    'Invalid Input!Please search for a number between 1 - 10',
+  );
+});
